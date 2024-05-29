@@ -6,6 +6,8 @@ import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 
+
+
 public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     public static final int BOARD_SIZE = 5;
@@ -14,6 +16,8 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
 
     private final ReadOnlyIntegerWrapper numberOfMoves;
+
+   // private Player currentPlayer;
 
     public BoardGameModel() {
         board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE-1];
@@ -26,18 +30,20 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
                             default -> Square.NONE;
                         }
                 );
+
             }
         }
 
         numberOfMoves = new ReadOnlyIntegerWrapper(0);
-
+       // currentPlayer = Player.PLAYER_1;
+///maybe here
 
     }
 
 
     public ReadOnlyIntegerProperty numberOfMovesProperty() {
         return numberOfMoves.getReadOnlyProperty();
-   }
+    }
 
     public ReadOnlyObjectProperty<Square> squareProperty(int row, int col) {
         return board[row][col].getReadOnlyProperty();
@@ -67,6 +73,128 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
 
+
+
+//    // Created these functions below to check the sequence but it ias causing errors
+//    public boolean checkHorizontalSeq(Position p) {
+//        int row = p.row();
+//        int col = p.col();
+//
+//        Square playerSquare = (getNextPlayer() == Player.PLAYER_1) ? Square.BLUE : Square.RED;
+//
+////        // Ensure the sequence does not go out of bounds horizontally
+////        if (col + 2 >= BOARD_SIZE) {
+////            return false;
+////        }
+//
+//        // Check for a horizontal sequence
+//        return board[row][col].get() == playerSquare &&
+//                board[row][col + 1].get() == playerSquare &&
+//                board[row][col + 2].get() == playerSquare;
+//    }
+//
+//    public boolean checkReverseHorizontalSeq(Position p) {
+//        int row = p.row();
+//        int col = p.col();
+//
+//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
+//
+////        // Ensure the sequence does not go out of bounds horizontally
+////        if (col - 2 < 0) {
+////            return false;
+////        }
+//
+//        // Check for a reverse horizontal sequence
+//        return board[row][col].get() == playerSquare &&
+//                board[row][col - 1].get() == playerSquare &&
+//                board[row][col - 2].get() == playerSquare;
+//    }
+//
+//
+//    // Check for a vertical sequence
+//    public boolean checkVerticalSeq(Position p) {
+//        int row = p.row();
+//        int col = p.col();
+//
+//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
+//
+//
+////        if (row + 2 >= BOARD_SIZE) {
+////            return false;
+////        }
+//
+//
+//        return board[row][col].get() == playerSquare &&
+//                board[row + 1][col].get() == playerSquare &&
+//                board[row + 2][col].get() == playerSquare;
+//    }
+//
+//    // Check for a reverse vertical sequence
+//    public boolean checkReverseVerticalSeq(Position p) {
+//        int row = p.row();
+//        int col = p.col();
+//
+//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
+//
+////
+////        if (row - 2 < 0) {
+////            return false;
+////        }
+//
+//        return board[row][col].get() == playerSquare &&
+//                board[row - 1][col].get() == playerSquare &&
+//                board[row - 2][col].get() == playerSquare;
+//    }
+//
+//    // Check for a diagonal sequence
+//    public boolean checkDiagonalSeq(Position p) {
+//        int row = p.row();
+//        int col = p.col();
+//
+//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
+//
+//
+////        if (row + 2 >= BOARD_SIZE || col + 2 >= BOARD_SIZE) {
+////            return false;
+////        }
+//
+//
+//        return board[row][col].get() == playerSquare &&
+//                board[row + 1][col + 1].get() == playerSquare &&
+//                board[row + 2][col + 2].get() == playerSquare;
+//    }
+//
+//    // Check for a reverse diagonal sequence
+//    public boolean checkReverseDiagonalSeq(Position p) {
+//        int row = p.row();
+//        int col = p.col();
+//
+//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
+//
+////        if (row - 2 < 0 || col + 2 >= BOARD_SIZE) {
+////            return false;
+////        }
+//
+//        return board[row][col].get() == playerSquare &&
+//                board[row - 1][col + 1].get() == playerSquare &&
+//                board[row - 2][col + 2].get() == playerSquare;
+//    }
+//
+//    public boolean checkSeq(Position to) {
+//        return checkHorizontalSeq(to) || checkReverseHorizontalSeq(to)
+//                || checkVerticalSeq(to) || checkReverseVerticalSeq(to)
+//                || checkDiagonalSeq(to) || checkReverseDiagonalSeq(to);
+//
+//    }
+
+
+
+
+
+
+
+    // Thes ones below are also working fine
+
     @Override
     public boolean isLegalToMoveFrom(Position from) {
         return isOnBoard(from) && !isEmpty(from);
@@ -82,6 +210,15 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         setSquare(to, getSquare(from));
         setSquare(from, Square.NONE);
         numberOfMoves.set(numberOfMoves.get() +  1);
+
+//        if(checkSeq(to)){
+//            isWinner(currentPlayer);
+//            System.out.println(currentPlayer + "won");
+//        }
+//        getNextPlayer();
+
+
+
     }
 
 
@@ -106,21 +243,12 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    // I do not understand how things are going with the functions below:
 
     @Override
     public Player getNextPlayer() {
+//        currentPlayer = (currentPlayer == Player.PLAYER_1) ? Player.PLAYER_2 : Player.PLAYER_1;
+//        return currentPlayer;
         return null;
     }
 

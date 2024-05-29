@@ -81,6 +81,8 @@ public class BoardGameController {
         numberOfMovesField.textProperty().bind(model.numberOfMovesProperty().asString());
     }
 
+
+
     private StackPane createSquare(int row, int col) {
         var square = new StackPane();
         square.getStyleClass().add("square");
@@ -118,6 +120,8 @@ public class BoardGameController {
             }
         };
     }
+
+
 
     private void showSelectionPhaseChange(ObservableValue<? extends BoardGameMoveSelector.Phase> value, BoardGameMoveSelector.Phase oldPhase, BoardGameMoveSelector.Phase newPhase) {
         switch (newPhase) {
