@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox prefHeight="637.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.BoardGameController">
+<VBox prefHeight="637.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.controllers.BoardGameController">
    <children>
       <GridPane fx:id="board" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="603.0" style="-fx-background-color: beige; -fx-border-image-insets: collapse;" stylesheets="@ui.css" vgap="10.0">
           <columnConstraints>
