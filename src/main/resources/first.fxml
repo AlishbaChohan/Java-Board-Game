@@ -25,7 +25,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="75.0" prefWidth="360.0" spacing="10.0">
                <children>
-                  <Label text="Player One:" textFill="BLUE">
+                  <Label text="Player One:" textFill="RED">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -35,7 +35,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="69.0" prefWidth="360.0" spacing="10.0">
                <children>
-                  <Label text="Player Two:" textFill="RED">
+                  <Label text="Player Two:" textFill="BLUE">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -45,7 +45,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="102.0" prefWidth="385.0" spacing="10.0">
                <children>
-                  <Text fill="#89b112" strokeType="OUTSIDE" strokeWidth="0.0" text="Player One playes with the Blue pieces Player Two playes with the Red pieces" textAlignment="CENTER" wrappingWidth="297.3033447265625">
+                  <Text fill="#89b112" strokeType="OUTSIDE" strokeWidth="0.0" text="Player One playes with the Red pieces Player Two playes with the Blue pieces" textAlignment="CENTER" wrappingWidth="284.63671875">
                      <font>
                         <Font size="15.0" />
                      </font>
