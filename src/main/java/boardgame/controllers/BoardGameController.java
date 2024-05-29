@@ -78,7 +78,7 @@ public class BoardGameController {
         Logger.info("Player 2 name: {}", playerTwoName);
         playerOneText.textProperty().bind(playerOneName);
         playerTwoText.textProperty().bind(playerTwoName);
-        //numberOfMovesField.textProperty().bind(model.numberOfMovesProperty().asString());
+        numberOfMovesField.textProperty().bind(model.numberOfMovesProperty().asString());
     }
 
     private StackPane createSquare(int row, int col) {

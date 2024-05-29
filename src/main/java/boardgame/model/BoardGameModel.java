@@ -12,8 +12,8 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     private final ReadOnlyObjectWrapper<Square>[][] board;
 
-    //for later use
-   // private final ReadOnlyIntegerWrapper numberOfMoves;
+
+    private final ReadOnlyIntegerWrapper numberOfMoves;
 
     public BoardGameModel() {
         board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE-1];
@@ -29,15 +29,15 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
             }
         }
 
-        //numberOfMoves = new ReadOnlyIntegerWrapper(0);
+        numberOfMoves = new ReadOnlyIntegerWrapper(0);
 
 
     }
 
-    //for later use
-//    public ReadOnlyIntegerProperty numberOfMovesProperty() {
-//        return numberOfMoves.getReadOnlyProperty();
-//    }
+
+    public ReadOnlyIntegerProperty numberOfMovesProperty() {
+        return numberOfMoves.getReadOnlyProperty();
+   }
 
     public ReadOnlyObjectProperty<Square> squareProperty(int row, int col) {
         return board[row][col].getReadOnlyProperty();
@@ -81,7 +81,7 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     public void makeMove(Position from, Position to) {
         setSquare(to, getSquare(from));
         setSquare(from, Square.NONE);
-        //numberOfMoves.set(numberOfMoves.get() +  1);
+        numberOfMoves.set(numberOfMoves.get() +  1);
     }
 
 
