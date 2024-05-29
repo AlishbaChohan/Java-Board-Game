@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-//import org.tinylog.Logger;
+import org.tinylog.Logger;
 
 public class BoardGameController {
     @FXML
@@ -47,12 +47,12 @@ public class BoardGameController {
 
     public void setPlayerOneName(String playerOneName) {
         this.playerOneName.set(playerOneName);
-        //Logger.info("Player 1 name is set to {}", playerOneName);
+        Logger.info("Player 1 name is set to {}", playerOneName);
     }
 
     public void setPlayerTwoName(String playerTwoName) {
         this.playerTwoName.set(playerTwoName);
-        //Logger.info("Player 2 name is set to {}", playerTwoName);
+        Logger.info("Player 2 name is set to {}", playerTwoName);
     }
 
 
@@ -74,8 +74,8 @@ public class BoardGameController {
             }
         }
         selector.phaseProperty().addListener(this::showSelectionPhaseChange);
-       // Logger.info("Player 1 name: {}", playerOneName);
-       // Logger.info("Player 2 name: {}", playerTwoName);
+        Logger.info("Player 1 name: {}", playerOneName);
+        Logger.info("Player 2 name: {}", playerTwoName);
         playerOneText.textProperty().bind(playerOneName);
         playerTwoText.textProperty().bind(playerTwoName);
         //numberOfMovesField.textProperty().bind(model.numberOfMovesProperty().asString());
@@ -96,7 +96,7 @@ public class BoardGameController {
         var square = (StackPane) event.getSource();
         var row = GridPane.getRowIndex(square);
         var col = GridPane.getColumnIndex(square);
-        //Logger.info("Click on square ({},{})", row, col);
+        Logger.info("Click on square ({},{})", row, col);
         selector.select(new Position(row, col));
         if (selector.isReadyToMove()) {
             selector.makeMove();
