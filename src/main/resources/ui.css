@@ -1,0 +1,14 @@
+.square {
+    -fx-border-style: solid;
+}
+
+.square:hover {
+    -fx-background-color: whitesmoke;
+}
+
+.square.selected {
+    -fx-border-width: 5;
+    -fx-border-color: slategray;
+}
+
+
