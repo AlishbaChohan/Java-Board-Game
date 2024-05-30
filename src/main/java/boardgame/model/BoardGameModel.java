@@ -17,6 +17,11 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     private final ReadOnlyIntegerWrapper numberOfMoves;
 
+    private final ReadOnlyObjectWrapper<Player> player;
+//    private
+
+//    private Player player;
+
    // private Player currentPlayer;
 
     public BoardGameModel() {
@@ -35,9 +40,16 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         }
 
         numberOfMoves = new ReadOnlyIntegerWrapper(0);
-       // currentPlayer = Player.PLAYER_1;
+//        player = new ReadOnlyObjectWrapper<>(Player.PLAYER_1);
+
+        player = new ReadOnlyObjectWrapper<>(Player.PLAYER_1);
+
+
 ///maybe here
 
+    }
+    public ReadOnlyObjectProperty<Player> playerProperty() {
+        return player.getReadOnlyProperty();
     }
 
 
@@ -75,117 +87,6 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
 
 
-//    // Created these functions below to check the sequence but it ias causing errors
-//    public boolean checkHorizontalSeq(Position p) {
-//        int row = p.row();
-//        int col = p.col();
-//
-//        Square playerSquare = (getNextPlayer() == Player.PLAYER_1) ? Square.BLUE : Square.RED;
-//
-////        // Ensure the sequence does not go out of bounds horizontally
-////        if (col + 2 >= BOARD_SIZE) {
-////            return false;
-////        }
-//
-//        // Check for a horizontal sequence
-//        return board[row][col].get() == playerSquare &&
-//                board[row][col + 1].get() == playerSquare &&
-//                board[row][col + 2].get() == playerSquare;
-//    }
-//
-//    public boolean checkReverseHorizontalSeq(Position p) {
-//        int row = p.row();
-//        int col = p.col();
-//
-//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
-//
-////        // Ensure the sequence does not go out of bounds horizontally
-////        if (col - 2 < 0) {
-////            return false;
-////        }
-//
-//        // Check for a reverse horizontal sequence
-//        return board[row][col].get() == playerSquare &&
-//                board[row][col - 1].get() == playerSquare &&
-//                board[row][col - 2].get() == playerSquare;
-//    }
-//
-//
-//    // Check for a vertical sequence
-//    public boolean checkVerticalSeq(Position p) {
-//        int row = p.row();
-//        int col = p.col();
-//
-//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
-//
-//
-////        if (row + 2 >= BOARD_SIZE) {
-////            return false;
-////        }
-//
-//
-//        return board[row][col].get() == playerSquare &&
-//                board[row + 1][col].get() == playerSquare &&
-//                board[row + 2][col].get() == playerSquare;
-//    }
-//
-//    // Check for a reverse vertical sequence
-//    public boolean checkReverseVerticalSeq(Position p) {
-//        int row = p.row();
-//        int col = p.col();
-//
-//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
-//
-////
-////        if (row - 2 < 0) {
-////            return false;
-////        }
-//
-//        return board[row][col].get() == playerSquare &&
-//                board[row - 1][col].get() == playerSquare &&
-//                board[row - 2][col].get() == playerSquare;
-//    }
-//
-//    // Check for a diagonal sequence
-//    public boolean checkDiagonalSeq(Position p) {
-//        int row = p.row();
-//        int col = p.col();
-//
-//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
-//
-//
-////        if (row + 2 >= BOARD_SIZE || col + 2 >= BOARD_SIZE) {
-////            return false;
-////        }
-//
-//
-//        return board[row][col].get() == playerSquare &&
-//                board[row + 1][col + 1].get() == playerSquare &&
-//                board[row + 2][col + 2].get() == playerSquare;
-//    }
-//
-//    // Check for a reverse diagonal sequence
-//    public boolean checkReverseDiagonalSeq(Position p) {
-//        int row = p.row();
-//        int col = p.col();
-//
-//        Square playerSquare = (currentPlayer == Player.PLAYER_1) ? Square.BLUE : Square.RED;
-//
-////        if (row - 2 < 0 || col + 2 >= BOARD_SIZE) {
-////            return false;
-////        }
-//
-//        return board[row][col].get() == playerSquare &&
-//                board[row - 1][col + 1].get() == playerSquare &&
-//                board[row - 2][col + 2].get() == playerSquare;
-//    }
-//
-//    public boolean checkSeq(Position to) {
-//        return checkHorizontalSeq(to) || checkReverseHorizontalSeq(to)
-//                || checkVerticalSeq(to) || checkReverseVerticalSeq(to)
-//                || checkDiagonalSeq(to) || checkReverseDiagonalSeq(to);
-//
-//    }
 
 
 
@@ -210,36 +111,36 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         setSquare(to, getSquare(from));
         setSquare(from, Square.NONE);
         numberOfMoves.set(numberOfMoves.get() +  1);
+        player.set(getNextPlayer());
 
-//        if(checkSeq(to)){
-//            isWinner(currentPlayer);
-//            System.out.println(currentPlayer + "won");
-//        }
-//        getNextPlayer();
+    }
+    public void checkWinning(Position p){
+        if(checkHorizontal(p.row(), p.col())){
 
-
-
+        };
     }
 
 
-
-    //Understand and use for movement
-    @Override
-    public String toString() {
-        var sb = new StringBuilder();
-        for (var i = 0; i < BOARD_SIZE; i++) {
-            for (var j = 0; j < (BOARD_SIZE - 1); j++) {
-                sb.append(board[i][j].get().ordinal()).append(' ');
+    public boolean checkHorizontal(int row, int col){
+        int countAdjacent = 0;
+        int actualCol = col;
+        int expCol = 0;
+        for(int i = 0; i < (BOARD_SIZE-1); i++){
+            if(board[row][actualCol] == board[row][expCol +i]) {
+                countAdjacent++;
             }
-            sb.append('\n');
         }
-        return sb.toString();
+        if (countAdjacent == 3){
+            return true;
+        }
+
+        return false;
+
     }
 
-    public static void main(String[] args) {
-        var model = new BoardGameModel();
-        System.out.println(model);
-    }
+
+
+
 
 
 
@@ -247,14 +148,13 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     @Override
     public Player getNextPlayer() {
-//        currentPlayer = (currentPlayer == Player.PLAYER_1) ? Player.PLAYER_2 : Player.PLAYER_1;
-//        return currentPlayer;
-        return null;
+        return player.get().opponent();
     }
 
     @Override
     public boolean isGameOver() {
-        return false;
+
+            return false;
     }
 
     @Override
@@ -266,4 +166,6 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     public boolean isWinner(Player player) {
         return TwoPhaseMoveState.super.isWinner(player);
     }
+
+
 }

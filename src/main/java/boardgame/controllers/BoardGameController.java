@@ -35,6 +35,10 @@ public class BoardGameController {
     @FXML
     private TextField numberOfMovesField;
 
+    @FXML
+    private Text playerTurn;
+
+
     private final StringProperty playerOneName = new SimpleStringProperty();
     private final StringProperty playerTwoName = new SimpleStringProperty();
 
@@ -79,6 +83,7 @@ public class BoardGameController {
         playerOneText.textProperty().bind(playerOneName);
         playerTwoText.textProperty().bind(playerTwoName);
         numberOfMovesField.textProperty().bind(model.numberOfMovesProperty().asString());
+        playerTurn.textProperty().bind(model.playerProperty().asString().concat("'s turn"));
     }
 
 
@@ -93,6 +98,7 @@ public class BoardGameController {
         return square;
     }
 
+
     @FXML
     private void handleMouseClick(MouseEvent event) {
         var square = (StackPane) event.getSource();
@@ -102,6 +108,11 @@ public class BoardGameController {
         selector.select(new Position(row, col));
         if (selector.isReadyToMove()) {
             selector.makeMove();
+
+//            if (model.) {
+//                Logger.info("Three in a row detected!");
+//                // Handle the win condition
+//            }
         }
     }
 
