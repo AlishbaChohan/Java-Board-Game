@@ -1,11 +1,7 @@
 package boardgame.model;
 
 import game.TwoPhaseMoveState;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-
+import javafx.beans.property.*;
 
 
 public class BoardGameModel implements TwoPhaseMoveState<Position> {
@@ -18,12 +14,15 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     private final ReadOnlyIntegerWrapper numberOfMoves;
 
     private final ReadOnlyObjectWrapper<Player> player;
+    private final ReadOnlyBooleanWrapper gameOver;
 //    private
 
-//    private Player player;
+  // private Player player;
 
    // private Player currentPlayer;
+    private final ReadOnlyObjectWrapper<Status> status;
 
+    private Square square;
     public BoardGameModel() {
         board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE-1];
         for (var i = 0; i < BOARD_SIZE; i++) {
@@ -40,14 +39,19 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         }
 
         numberOfMoves = new ReadOnlyIntegerWrapper(0);
-//        player = new ReadOnlyObjectWrapper<>(Player.PLAYER_1);
-
         player = new ReadOnlyObjectWrapper<>(Player.PLAYER_1);
-
-
+        status = new ReadOnlyObjectWrapper<>(Status.IN_PROGRESS);
+        status.set(Status.IN_PROGRESS);
+        gameOver = new ReadOnlyBooleanWrapper();
+        gameOver.set(false);
+        //player.set(Player.PLAYER_1);
 ///maybe here
 
     }
+    public ReadOnlyBooleanProperty gameOverProperty() {
+        return gameOver.getReadOnlyProperty();
+    }
+
     public ReadOnlyObjectProperty<Player> playerProperty() {
         return player.getReadOnlyProperty();
     }
@@ -112,35 +116,50 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         setSquare(from, Square.NONE);
         numberOfMoves.set(numberOfMoves.get() +  1);
         player.set(getNextPlayer());
+        checkWinning(to);
+
 
     }
     public void checkWinning(Position p){
         if(checkHorizontal(p.row(), p.col())){
-
-        };
+            gameOver.set(true);
+        }
     }
 
+
+//    public boolean checkHorizontal(int row, int col){
+//        int countAdjacent = 0;
+//        int actualCol = col;
+//        int expCol = 0;
+//        for(int i = 0; i < (BOARD_SIZE-1); i++){
+//            if(board[row][actualCol].get() == board[row][expCol + i].get()) {
+//                countAdjacent++;
+//            }
+//        }
+//        if (countAdjacent == 3){
+//            return true;
+//        }
+//
+//        return false;
+//
+//    }
 
     public boolean checkHorizontal(int row, int col){
-        int countAdjacent = 0;
+        int countAdjacent = 0; // Start with 1 as we include the starting position itself
         int actualCol = col;
         int expCol = 0;
-        for(int i = 0; i < (BOARD_SIZE-1); i++){
-            if(board[row][actualCol] == board[row][expCol +i]) {
+        // Check to the right of the starting position
+        for (int i = 0; i < BOARD_SIZE - 1; i++) {
+            if (board[row][actualCol].get() == board[row][expCol + i].get()) {
                 countAdjacent++;
+                if (countAdjacent == 2) {
+                    return true;
+                }
+            } else {
+                countAdjacent = 0; // Reset the count if squares are not matching
             }
-        }
-        if (countAdjacent == 3){
-            return true;
-        }
-
-        return false;
-
+        }return false;
     }
-
-
-
-
 
 
 
@@ -153,13 +172,17 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     @Override
     public boolean isGameOver() {
-
-            return false;
+            return gameOver.get();
     }
 
     @Override
     public Status getStatus() {
-        return null;
+        if(!isGameOver()){
+            return Status.IN_PROGRESS;
+        }
+//        return null;
+       return player.get() == Player.PLAYER_2 ? Status.PLAYER_1_WINS : Status.PLAYER_2_WINS;
+        // Logger.info("player");
     }
 
     @Override

@@ -12,6 +12,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -84,6 +85,10 @@ public class BoardGameController {
         playerTwoText.textProperty().bind(playerTwoName);
         numberOfMovesField.textProperty().bind(model.numberOfMovesProperty().asString());
         playerTurn.textProperty().bind(model.playerProperty().asString().concat("'s turn"));
+        model.gameOverProperty().addListener(this::handleGameOver);
+
+
+
     }
 
 
@@ -159,6 +164,21 @@ public class BoardGameController {
             }
         }
         throw new AssertionError();
+    }
+
+    private void handleGameOver(ObservableValue<? extends Boolean> observableValue, boolean oldValue, boolean newValue) {
+        if (newValue) {
+            Logger.debug("Game over is called");
+            Platform.runLater(this::showGameOverAlertAndExit);
+        }
+    }
+
+    private void showGameOverAlertAndExit() {
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Game Over");
+        alert.setContentText(model.getStatus().toString());
+        alert.showAndWait();
+        Platform.exit();
     }
 
 
