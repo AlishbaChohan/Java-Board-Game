@@ -115,40 +115,46 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
     }
 
     public void checkWinning(Position p) {
-        if (checkHorizontal(p.row(), p.col()) || checkVertical(p.row(), p.col())) {
+        if (checkHorizontal(p.row(), p.col()) || checkVertical(p.row(), p.col()) ) {
             gameOver.set(true);
         }
     }
 
 
-    public boolean checkHorizontal(int row, int col){
+    public boolean checkHorizontal(int row, int col) {
         int countAdjacent = 0;
         int actualCol = col;
         int expCol = 0;
-        for(int i = 0; i < (BOARD_SIZE-1); i++){
-            if(board[row][actualCol].get() == board[row][expCol + i].get()) {
+        for (int i = 0; i < (BOARD_SIZE - 1); i++) {
+            if (board[row][actualCol].get() == board[row][expCol + i].get()) {
                 countAdjacent++;
+                if (countAdjacent == 3) {
+                    return true;
+                }
+            } else {
+                countAdjacent = 0;
             }
         }
-        if (countAdjacent == 3){
-            return true;
-        }
+
 
         return false;
 
     }
 
-    public boolean checkVertical(int row, int col){
+    public boolean checkVertical(int row, int col) {
         int countAdjacent = 0;
         int actualRow = row;
         int expRow = 0;
-        for(int i = 0; i < BOARD_SIZE; i++){
-            if(board[actualRow][col].get() == board[expRow + i][col].get()) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            if (board[actualRow][col].get() == board[expRow + i][col].get()) {
                 countAdjacent++;
+                if (countAdjacent == 3) {
+                    return true;
+                }
+            } else {
+                countAdjacent = 0;
             }
-        }
-        if (countAdjacent == 3){
-            return true;
+
         }
 
         return false;
@@ -156,6 +162,12 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
     }
 
 
+
+
+//    public boolean checkDiagonal1(int row, int col) {
+//
+//        return false;
+//    }
 
 
 
@@ -194,7 +206,6 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
 //            }
 //        }return false;
 //    }
-
 
 
     // I do not understand how things are going with the functions below:
