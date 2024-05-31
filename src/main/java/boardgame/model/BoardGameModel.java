@@ -4,11 +4,11 @@ import game.TwoPhaseMoveState;
 import javafx.beans.property.*;
 
 
-public class BoardGameModel implements TwoPhaseMoveState<Position> {
+public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
 
     public static final int BOARD_SIZE = 5;
 
-    private final ReadOnlyObjectWrapper<Square>[][] board;
+    private final ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE - 1];
 
 
     private final ReadOnlyIntegerWrapper numberOfMoves;
@@ -25,7 +25,7 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     private Square square;
 
     public BoardGameModel() {
-        board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE - 1];
+//        board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE - 1];
         for (var i = 0; i < BOARD_SIZE; i++) {
             for (var j = 0; j < (BOARD_SIZE - 1); j++) {
                 board[i][j] = new ReadOnlyObjectWrapper<>(
@@ -155,7 +155,27 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     }
 
-    
+
+
+
+
+//    private boolean checkDiagonal1(final int row, final int col) {
+//        for (int i = 1; i < length; i++) {
+//            if (board[row][col] != board[row + i][col + i]) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//
+//    private boolean checkDiagonal2(final int row, final int col) {
+//        for (int i = 1; i < length; i++) {
+//            if (board[row][col] != board[row - i][col + i]) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
 //    public boolean checkHorizontal(int row, int col){
 //        int countAdjacent = 0; // Start with 1 as we include the starting position itself
@@ -204,5 +224,16 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return TwoPhaseMoveState.super.isWinner(player);
     }
 
+    @Override
+    public String toString() {
+        var sb = new StringBuilder();
+        for (var i = 0; i < BOARD_SIZE; i++) {
+            for (var j = 0; j < (BOARD_SIZE - 1); j++) {
+                sb.append(board[i][j].get().ordinal()).append(' ');
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
 
 }
