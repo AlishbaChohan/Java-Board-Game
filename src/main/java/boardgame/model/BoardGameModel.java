@@ -11,16 +11,16 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
     private final ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE - 1];
 
 
-    private final ReadOnlyIntegerWrapper numberOfMoves;
+    public final ReadOnlyIntegerWrapper numberOfMoves;
 
-    private final ReadOnlyObjectWrapper<Player> player;
-    private final ReadOnlyBooleanWrapper gameOver;
+    public final ReadOnlyObjectWrapper<Player> player;
+    public final ReadOnlyBooleanWrapper gameOver;
 //    private
 
     // private Player player;
 
     // private Player currentPlayer;
-    private final ReadOnlyObjectWrapper<Status> status;
+    public final ReadOnlyObjectWrapper<Status> status;
 
     private Square square;
 
@@ -114,10 +114,13 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
 
     }
 
-    public void checkWinning(Position p) {
+    public boolean checkWinning(Position p) {
         if (checkHorizontal(p.row(), p.col()) || checkVertical(p.row(), p.col()) ) {
             gameOver.set(true);
+            return true;
+
         }
+        return false;
     }
 
 
@@ -161,6 +164,29 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
 
     }
 
+//    public boolean checkDiagonal1(int row, int col) {
+//        int countAdjacent = 0;
+////        int actualRow = row;
+//        int expRow = 0;
+//        int expCol = 0;
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 2; i++){
+//                if (board[row][col].get() == board[expRow + i][col + j].get()) {
+//                    countAdjacent++;
+//                    if (countAdjacent == 3) {
+//                        return true;
+//                    }
+//                } else {
+//                    countAdjacent = 0;
+//                }
+//            }
+//
+//
+//        }
+//
+//        return false;
+//
+//    }
 
 
 
