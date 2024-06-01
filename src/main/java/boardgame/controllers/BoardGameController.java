@@ -4,6 +4,7 @@ import boardgame.model.BoardGameModel;
 import boardgame.model.Position;
 import boardgame.model.Square;
 import boardgame.util.BoardGameMoveSelector;
+import game.State;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -163,9 +164,10 @@ public class BoardGameController {
     }
 
     private void showGameOverAlertAndExit() {
+        String winnerName = model.getStatus() == State.Status.PLAYER_1_WINS ? playerOneName.get() : playerTwoName.get();
         var alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Game Over");
-        alert.setContentText(model.getStatus().toString());
+        alert.setContentText(model.getStatus().toString().concat("\nCongratulations: " + winnerName + " !"));
         alert.showAndWait();
         Platform.exit();
     }
