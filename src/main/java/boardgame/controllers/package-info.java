@@ -1,4 +1,4 @@
 /**
- * Package for managing all the controllers.
+ * Contains all the controllers.
  */
 package boardgame.controllers;
