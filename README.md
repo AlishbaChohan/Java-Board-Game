@@ -1,5 +1,41 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/f0r53tPY)
-# TODO: a title for your project
+# TWO PLAYER BOARD GAME
 
-TODO: a detailed description of your project (must contain at least the original description of the assignment)
 
+The game is played by two players.
+
+Consider a game board consisting of 5 rows and 4 columns. The game is played with 4 blue stones and 4 red stones. Initially, the stones are arranged on the board as follows:
+
+<img height="" src="boardgame.png" width="500"/>
+
+Players move in turn, the first player plays with the red stones, the other with the blue stones. In a move, a player must move one of his or her stones by one square to an empty square, either horizontally or vertically. The winner is the player who first forms an unbroken chain of three stones of his or her color horizontally, vertically, or diagonally.
+
+An example game play could be:
+
+PLAYER_2' move [from]: 0 0 
+PLAYER_2' move [to]: 1 0
+
+PLAYER_1' move [from]:  0 3
+PLAYER_1' move [to]: 1 3
+
+PLAYER_2' move [from]: 0 2
+PLAYER_2' move [to]: 1 2
+
+PLAYER_1' move [from]: 0 1
+PLAYER_1' move [to]: 0 2
+
+PLAYER_2' move [from]: 4 1
+PLAYER_2' move [to]: 3 1
+
+PLAYER_1' move [from]: 0 2
+PLAYER_1' move [to]: 0 3
+
+PLAYER_2' move [from]: 3 1
+PLAYER_2' move [to]: 2 1
+
+PLAYER_1' move [from]: 4 2
+PLAYER_1' move [to]: 3 2
+
+PLAYER_2' move [from]: 2 1
+PLAYER_2' move [to]: 1 1
+
+PLAYER_1 won
