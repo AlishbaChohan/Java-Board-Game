@@ -9,7 +9,7 @@ Consider a game board consisting of 5 rows and 4 columns. The game is played wit
 
 Players move in turn, the first player plays with the red stones, the other with the blue stones. In a move, a player must move one of his or her stones by one square to an empty square, either horizontally or vertically. The winner is the player who first forms an unbroken chain of three stones of his or her color horizontally, vertically, or diagonally.
 
-An example game play could be:
+An example game play could be given as:
 
 PLAYER_2' move [from]: 0 0 
 PLAYER_2' move [to]: 1 0
