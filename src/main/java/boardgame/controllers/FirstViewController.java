@@ -19,14 +19,6 @@ public class FirstViewController {
     @FXML
     private TextField playerTwoNameField;
 
-//    public String player1;
-//    public String player2;
-
-//    @FXML
-//    private void initialize() {
-//        nameField.setText(System.getProperty("user.name"));
-//    }
-
     @FXML
     private void handleNextButton(ActionEvent event) throws IOException {
         Logger.info("Player 1 Name entered: {}", playerOneNameField.getText());
@@ -34,8 +26,6 @@ public class FirstViewController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui.fxml"));
         Parent root = fxmlLoader.load();
         BoardGameController controller = fxmlLoader.getController();
-//        player1 = playerOneNameField.getText();
-//        player2 = playerTwoNameField.getText();
         controller.setPlayerOneName(playerOneNameField.getText());
         controller.setPlayerTwoName(playerTwoNameField.getText());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

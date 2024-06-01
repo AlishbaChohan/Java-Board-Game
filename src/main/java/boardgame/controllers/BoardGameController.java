@@ -39,10 +39,8 @@ public class BoardGameController {
     @FXML
     private Text playerTurn;
 
-
     private final StringProperty playerOneName = new SimpleStringProperty();
     private final StringProperty playerTwoName = new SimpleStringProperty();
-
     public String getPlayerOneName() {
         return playerOneName.get();
     }
@@ -60,8 +58,6 @@ public class BoardGameController {
         Logger.info("Player 2 name is set to {}", playerTwoName);
     }
 
-
-
     private final BoardGameModel model = new BoardGameModel();
 
     private final BoardGameMoveSelector selector = new BoardGameMoveSelector(model);
@@ -70,6 +66,7 @@ public class BoardGameController {
     private void handleQuitButton(ActionEvent event) {
         Platform.exit();
     }
+
     @FXML
     private void initialize() {
         for (var i = 0; i < board.getRowCount(); i++) {
@@ -86,12 +83,7 @@ public class BoardGameController {
         numberOfMovesField.textProperty().bind(model.numberOfMovesProperty().asString());
         playerTurn.textProperty().bind(model.playerProperty().asString().concat("'s turn"));
         model.gameOverProperty().addListener(this::handleGameOver);
-
-
-
     }
-
-
 
     private StackPane createSquare(int row, int col) {
         var square = new StackPane();
@@ -103,7 +95,6 @@ public class BoardGameController {
         return square;
     }
 
-
     @FXML
     private void handleMouseClick(MouseEvent event) {
         var square = (StackPane) event.getSource();
@@ -113,11 +104,6 @@ public class BoardGameController {
         selector.select(new Position(row, col));
         if (selector.isReadyToMove()) {
             selector.makeMove();
-
-//            if (model.) {
-//                Logger.info("Three in a row detected!");
-//                // Handle the win condition
-//            }
         }
     }
 
@@ -126,6 +112,7 @@ public class BoardGameController {
             {
                 super.bind(squareProperty);
             }
+
             @Override
             protected Paint computeValue() {
                 return switch (squareProperty.get()) {
@@ -137,11 +124,10 @@ public class BoardGameController {
         };
     }
 
-
-
     private void showSelectionPhaseChange(ObservableValue<? extends BoardGameMoveSelector.Phase> value, BoardGameMoveSelector.Phase oldPhase, BoardGameMoveSelector.Phase newPhase) {
         switch (newPhase) {
-            case SELECT_FROM -> {}
+            case SELECT_FROM -> {
+            }
             case SELECT_TO -> showSelection(selector.getFrom());
             case READY_TO_MOVE -> hideSelection(selector.getFrom());
         }
@@ -180,6 +166,5 @@ public class BoardGameController {
         alert.showAndWait();
         Platform.exit();
     }
-
 
 }
