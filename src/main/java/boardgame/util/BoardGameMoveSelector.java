@@ -5,6 +5,9 @@ import boardgame.model.Position;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 
+/**
+ * Utility Class for dealing with movement of the pieces.
+ */
 public class BoardGameMoveSelector{
 
 

@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Loads the game application.
+ */
 public class BoardGameApplication extends Application {
 
     @Override

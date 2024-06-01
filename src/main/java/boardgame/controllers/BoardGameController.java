@@ -23,6 +23,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import org.tinylog.Logger;
 
+/**
+ * Controller class for handling the game logic and user interaction.
+ */
 public class BoardGameController {
     @FXML
     private GridPane board;

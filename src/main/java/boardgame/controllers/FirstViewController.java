@@ -12,6 +12,9 @@ import org.tinylog.Logger;
 
 import java.io.IOException;
 
+/**
+ * Controller class for entering player names.
+ */
 public class FirstViewController {
     @FXML
     private TextField playerOneNameField;
