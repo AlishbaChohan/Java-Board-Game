@@ -7,9 +7,9 @@
     <version>1.0</version>
     <packaging>jar</packaging>
     <description>
-        It is a multiplayer game. The game is played with 4 blue pieces and 4 red pieces.
+        It is a multiplayer game. The game is played with 4 blue stones and 4 red stones.
         Initially, the stones are arranged on the board in a certain manner.
-        The winner is the player who first forms an unbroken chain of three pieces of his or her color horizontally,
+        The winner is the player who first forms an unbroken chain of three stones of his or her color horizontally,
         vertically, or diagonally.
     </description>
     <developers>
