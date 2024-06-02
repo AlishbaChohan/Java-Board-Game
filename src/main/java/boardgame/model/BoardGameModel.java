@@ -206,7 +206,10 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
      * @return {@code true} if there is a winning sequence,{@code false} otherwise
      */
     public boolean checkWinning(Position p) {
-        if (checkHorizontal(p.row(), p.col()) || checkVertical(p.row(), p.col())) {
+        if (checkHorizontal(p.row(), p.col()) ||
+                checkVertical(p.row(), p.col()) ||
+                checkDiagonal1(p.row(), p.col()) ||
+                checkDiagonal2(p.row(), p.col())) {
             gameOver.set(true);
             return true;
         }
@@ -256,6 +259,51 @@ public class BoardGameModel implements game.TwoPhaseMoveState<Position> {
                 }
             } else {
                 countAdjacent = 0;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if there is a positive diagonal sequence of three adjacent pieces.
+     *
+     * @param row row index
+     * @param col col index
+     * @return {@code true} if there is a positive diagonal sequence,{@code false} otherwise
+     */
+    public boolean checkDiagonal1(int row, int col) {
+        Square lastMovedColor = board[row][col].get();
+        for (int i = 0; i < (BOARD_ROW - 2); i++) {
+            for (int j = 0; j < (BOARD_COL - 2); j++) {
+                if (board[i][j].get() == lastMovedColor &&
+                        board[i + 1][j + 1].get() == lastMovedColor &&
+                        board[i + 2][j + 2].get() == lastMovedColor
+                ) {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if there is a negative diagonal sequence of three adjacent pieces.
+     *
+     * @param row row index
+     * @param col col index
+     * @return {@code true} if there is a negative diagonal sequence,{@code false} otherwise
+     */
+    public boolean checkDiagonal2(int row, int col) {
+        Square lastMovedColor = board[row][col].get();
+        for (int i = 0; i < (BOARD_ROW - 2); i++) {
+            for (int j = 2; j < BOARD_COL; j++) {
+                if (board[i][j].get() == lastMovedColor &&
+                        board[i + 1][j - 1].get() == lastMovedColor &&
+                        board[i + 2][j - 2].get() == lastMovedColor) {
+                    return true;
+                }
+
             }
         }
         return false;
