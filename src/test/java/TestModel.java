@@ -80,6 +80,24 @@ public class TestModel {
     }
 
     @Test
+    public void checkDiagonal1(){
+        Position tempPosition = new Position(0, 0);
+        Position tempPosition2 = new Position(1, 0);
+
+        assertFalse(model.checkDiagonal1(tempPosition.row(), tempPosition.col()));
+        assertTrue(model.checkDiagonal1(tempPosition2.row(), tempPosition2.col()));
+    }
+
+    @Test
+    public void checkDiagonal2(){
+        Position tempPosition = new Position(0, 3);
+        Position tempPosition2 = new Position(1, 3);
+
+        assertFalse(model.checkDiagonal2(tempPosition.row(), tempPosition.col()));
+        assertTrue(model.checkDiagonal2(tempPosition2.row(), tempPosition2.col()));
+    }
+
+    @Test
     public void getNextPlayer() {
         State.Player tempCurrentPlayer =  State.Player.PLAYER_1;
         State.Player tempCurrentPlayer2 =  State.Player.PLAYER_2;
